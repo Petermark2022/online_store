@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-nn(sw=z2q2))2b9$77^_20s&f-xa!e95=btm1w(j1^o#ek)7$&
 DEBUG = True
 
 ALLOWED_HOSTS = ['fuelmobile-augustnina-8000.codio-box.uk']
-
+CSRF_TRUSTED_ORIGINS = ['https://fuelmobile-augustnina-8000.codio-box.uk']
 
 # Application definition
 
@@ -124,6 +124,9 @@ import os
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
