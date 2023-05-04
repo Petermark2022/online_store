@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 {% load static %}
+<!-- {% static 'js/jquery.min.js' %} -->
 <html>
 <head>
-	<title>Ecom</title>
+	<title>IPM HOSE LINE</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
@@ -11,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
 	<script type="text/javascript">
-		var user = '{{request.user}}' 
+		var user = '{{request.user}}'
 
 		function getToken(name) {
 		    var cookieValue = null;
@@ -29,6 +30,34 @@
 		    return cookieValue;
 		}
 		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
 	
 	</script>
 
@@ -36,7 +65,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  <a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+	  <a class="navbar-brand" href="{% url 'store' %}">HydroWorld</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -48,13 +77,29 @@
 	      </li>
 	 
 	    </ul>
-	    <div class="form-inline my-2 my-lg-0">
-	     	<a href="#"class="btn btn-warning">Login</a>
+
+      <div class="input-group" style="width:196px !important;">
+        <input type="text" class="search-button" placeholder="Search" aria-label="Search" aria-describedby="search-button">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+      </div>
+
+
+	    	<div class="form-inline my-2 my-lg-0">
+			{% if request.user.is_anonymous %}
+	     	<a href="{% url 'login' %}"class="btn btn-warning">Login</a>
+			 {% else %}
+			 <a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
+			 {% endif %}
+
 	     	
 	     	<a href="{% url 'cart' %}">
 	    		<img  id="cart-icon" src="{% static 'images/cart.png' %}">
 	    	</a>
-	    	<p id="cart-total">0</p>
+	    	<p id="cart-total">{{cartItems}}</p>
 
 	    </div>
 	  </div>

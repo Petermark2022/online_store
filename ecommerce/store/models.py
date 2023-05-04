@@ -29,6 +29,10 @@ class Product(models.Model):
 			url = ''
 		return url
 
+	@classmethod
+	def search(cls, search_term):
+		return cls.objects.filter(name__icontains=search_term)
+
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)

@@ -97,3 +97,20 @@ h1,h2,h3,h4,h5,h6{
 .hidden{
 	display: none!important;
 }
+.search-button {
+  background-color: #f0c14b;
+  border-color: #a88734;
+  color: #111;
+  width: 80% !important;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.search-button:hover {
+  background-color: #f6d153;
+  width: 10px;
+}
