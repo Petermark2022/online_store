@@ -1,0 +1,16 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+  <h1>Search Results</h1>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matching products found.</p>
+    {% endif %}
+{% endblock %}
