@@ -31,8 +31,8 @@ SECRET_KEY = 'django-insecure-nn(sw=z2q2))2b9$77^_20s&f-xa!e95=btm1w(j1^o#ek)7$&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fuelmobile-augustnina-8000.codio-box.uk']
-CSRF_TRUSTED_ORIGINS = ['https://fuelmobile-augustnina-8000.codio-box.uk']
+ALLOWED_HOSTS = ['fuelmobile-augustnina-8000.codio-box.uk', 'hydroplus.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://fuelmobile-augustnina-8000.codio-box.uk', 'https://hydroplus.onrender.com']
 
 # core/settings.py
 
