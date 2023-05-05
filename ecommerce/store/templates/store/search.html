@@ -1,16 +1,14 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-
-  <h1>Search Results</h1>
-
-    {% if products %}
-        <ul>
-            {% for product in products %}
-                <li><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No matching products found.</p>
-    {% endif %}
+{% for product in products %}
+  <div class="product">
+    <img src="{{ product.imageURL }}" alt="{{ product.name }}">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.category }}</p>
+    <p>{{ product.price }}</p>
+  </div>
+{% empty %}
+  <p>No products found.</p>
+{% endfor %}
 {% endblock %}

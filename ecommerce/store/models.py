@@ -13,25 +13,30 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-	name = models.CharField(max_length=200)
-	price = models.FloatField()
-	digital = models.BooleanField(default=False,null=True, blank=True)
-	image = models.ImageField(null=True, blank=True)
+    name = models.CharField(max_length=200)
+    price = models.FloatField()
+    digital = models.BooleanField(default=False,null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
+    # category = models.CharField(max_length=200, null=True, blank=True)
 
-	def __str__(self):
-		return self.name
+    def __str__(self):
+        return self.name
 
-	@property
-	def imageURL(self):
-		try:
-			url = self.image.url
-		except:
-			url = ''
-		return url
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
-	@classmethod
-	def search(cls, search_term):
-		return cls.objects.filter(name__icontains=search_term)
+
+@classmethod
+def search(cls, search_term):
+    queryset = cls.objects.filter(name__icontains=search_term)
+    for product in queryset:
+        product.image_url = product.imageURL
+    return queryset
 
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)

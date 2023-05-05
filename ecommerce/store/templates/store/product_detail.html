@@ -1,0 +1,17 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<div class="product">
+    <img src="{{ product.imageURL }}" alt="{{ product.name }}">
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <h2>${{ product.price }}</h2>
+        <form action="{% url 'update_item' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="productId" value="{{ product.id }}">
+            <button type="submit" name="action" value="add">Add to cart</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

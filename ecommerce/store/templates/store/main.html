@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 {% load static %}
-<!-- {% static 'js/jquery.min.js' %} -->
 <html>
 <head>
-	<title>IPM HOSE LINE</title>
+	<title>hydroworld</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+	<link rel="stylesheet" href="{% static 'path/to/your/css/file.css' %}">
+
 
 	<script type="text/javascript">
 		var user = '{{request.user}}'
@@ -78,14 +80,18 @@
 	 
 	    </ul>
 
-      <div class="input-group" style="width:196px !important;">
+      <!-- <div class="input-group" style="width:196px !important;">
         <input type="text" class="search-button" placeholder="Search" aria-label="Search" aria-describedby="search-button">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="search-button">
                 <i class="fas fa-search"></i>
             </button>
         </div>
-      </div>
+      </div> -->
+      <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+			<input class="form-control mr-sm-2" type="search" name="query" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	  </form>
 
 
 	    	<div class="form-inline my-2 my-lg-0">
@@ -121,5 +127,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+    <!-- add Chart.js to your HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 </html>

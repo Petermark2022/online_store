@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.db.models import Count
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Product
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 import json
@@ -87,13 +89,24 @@ def cart(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/cart.html', context)
 
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    context = {'product': product}
+    return render(request, 'store/product_detail.html', context)
+
+
 def search_product(request):
-    search_query = request.GET.get('q')
-    if search_query:
-        products = Product.search(search_query)
+    query = request.GET.get('q')
+    if query:
+        products = Product.objects.filter(name__icontains=query)
     else:
         products = Product.objects.all()
-    return render(request, 'store/search.html', {'product' : product})
+    context = {
+        'products': products,  # fix typo here
+        'query': query
+    }
+    return render(request, 'store/search.html', context)
+
     
 
 def checkout(request):
@@ -163,3 +176,18 @@ def processOrder(request):
 		print('User is not logged in')
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+def chart(request):
+    # Aggregate product count by category
+    category_counts = Category.objects.annotate(product_count=Count('product'))
+
+    # Prepare chart data
+    categories = [c.name for c in category_counts]
+    product_counts = [c.product_count for c in category_counts]
+
+    # Render chart template with chart data
+    context = {
+        'categories': json.dumps(categories),
+        'product_counts': json.dumps(product_counts),
+    }
+    return render(request, 'store/chart.html', context)

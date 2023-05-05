@@ -1,0 +1,37 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <canvas id="product-chart"></canvas>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('product-chart').getContext('2d');
+        var categories = JSON.parse('{{ categories }}');
+        var productCounts = JSON.parse('{{ product_counts }}');
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Product Count',
+                    data: productCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+{% endblock %}
