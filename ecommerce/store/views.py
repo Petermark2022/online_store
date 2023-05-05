@@ -1,3 +1,4 @@
+import csv
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
@@ -8,6 +9,22 @@ import datetime
 from django.contrib import messages
 
 from .models import * 
+
+
+def upload_csv(request):
+    if request.method == 'POST':
+        csv_file = request.FILES['csv_file']
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'This is not a CSV file')
+        else:
+            file_data = csv_file.read().decode('utf-8')
+            lines = file_data.split("\n")
+            # Process the CSV data
+            for line in lines:
+                fields = line.split(",")
+                # Do something with the fields
+    return render(request, 'upload_csv.html')
+
 
 #Create your views here.
 def logout_view(request):

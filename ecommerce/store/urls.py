@@ -18,4 +18,6 @@ urlpatterns = [
     path('search/', views.search_product, name="search"),
 
     path('<int:product_id>/', views.product_detail, name='product_detail'),
+
+    path('upload-csv/', views.upload_csv, name='upload_csv'),
 ]
